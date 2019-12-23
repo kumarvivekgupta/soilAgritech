@@ -1,0 +1,73 @@
+.patient{
+  display: flex;
+  flex-direction: row;
+  height: -webkit-fill-available;
+&__option{
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   width: 20%;
+   margin-left: 10px;
+ }
+&__click-option{
+   width: 60%;
+ }
+}
+.button {
+  border-radius: 2rem;
+  height: 3rem;
+  width: 12rem;
+  font-size: 20px;
+  margin-top: 1rem!important;
+  background: lightskyblue;
+  -moz-box-shadow: 3px 3px 5px 6px white;
+  -webkit-box-shadow: 3px 3px 5px 6px white;
+  box-shadow: 3px 3px 5px 6px white;
+  color: white;
+  text-decoration-line: inherit;
+  text-decoration-color: #595959;
+
+
+}
+//.button:hover {
+  //  background-color: white;
+  //  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+  //  color: black;
+  //  transform: translateY(-7px) ease-in-out;
+  //  text-decoration-color: white;
+  //
+  //}
+.button-active{
+  background-color: white;
+  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+  color: black;
+  transform: translateY(-7px) ease-in-out;
+  text-decoration-color: white;
+}
+.wellOwise-fabicon.mat-icon {
+  font-size: 3rem;
+  color: #fff;
+  text-align: center;
+  position: fixed;
+  height: 70px;
+  line-height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  background: deepskyblue;
+  right: 30px;
+  bottom: 30px;
+  box-shadow: 0 4px 4px #999;
+  z-index: 100;
+&:hover {
+   cursor: pointer;
+ }
+
+&.with-filters {
+   right: 100px;
+   bottom: 40px;
+
+&.second {
+   right: 180px;
+ }
+}
+}

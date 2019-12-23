@@ -1,0 +1,90 @@
+<div class="patient">
+  <!--  <div class="patient__option">-->
+  <!--    <button class="button" mat-button [ngClass] = "activeButton===1?'button-active':''" (click)="activeButton=1" >Search Patient</button>-->
+  <!--    <button mat-button class="button"[ngClass] = "activeButton===2?'button-active':''" (click)="activeButton=2" >Add Patient</button>-->
+  <!--  </div>-->
+
+  <mat-icon
+    class="wellOwise-fabicon add-action"
+    matTooltipClass="osler-tooltip add__tooltip"
+    matTooltipPosition="before"
+    matTooltip="Add Patient"
+    [routerLink]="['/dashboard/patients/add']">
+    add
+  </mat-icon>
+  <div class="patient__click-option">
+
+
+    <div>
+      <h1 class = "search__heading">Results</h1>
+      <table style = "width: 100%;" mat-table [dataSource] = "doctorList" class = "mat-elevation-z8">
+
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- Position Column -->
+        <ng-container matColumnDef = "name">
+          <th mat-header-cell *matHeaderCellDef> Name</th>
+          <td mat-cell *matCellDef = "let element"> {{element?.doc_name}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef = "contact">
+          <th mat-header-cell *matHeaderCellDef> Contact no.</th>
+          <td mat-cell *matCellDef = "let element"> {{element?.doc_contact}} </td>
+        </ng-container>
+
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef = "email">
+          <th mat-header-cell *matHeaderCellDef> Email</th>
+          <td mat-cell *matCellDef = "let element"> {{element?.doc_email}} </td>
+
+        </ng-container>
+
+        <ng-container matColumnDef = "speciality">
+          <th mat-header-cell *matHeaderCellDef> Speciality</th>
+          <td mat-cell *matCellDef = "let element"> {{element?.speciality_name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef = "hospital">
+          <th mat-header-cell *matHeaderCellDef> Hospital</th>
+          <td mat-cell *matCellDef = "let element"> {{element?.hospitalName}} </td>
+
+        </ng-container>
+
+        <ng-container matColumnDef = "action">
+          <th mat-header-cell *matHeaderCellDef> Actions</th>
+          <td mat-cell *matCellDef = "let element" >
+            <mat-icon class = "action-icon"
+                      routerLink = "/dashboard/doctors/{{element.userId}}/edit"
+                      matTooltip = "Edit"
+                      matTooltipPosition = "below">
+              edit
+            </mat-icon>
+            <mat-icon class = "action-icon"
+                      routerLink = "/dashboard/doctors/{{element.userId}}/details"
+                      matTooltip = "Detail"
+                      matTooltipPosition = "below">
+              feedback
+            </mat-icon>
+          </td>
+        </ng-container>
+
+
+
+        <tr mat-header-row *matHeaderRowDef = "displayedColumns"></tr>
+        <tr mat-row *matRowDef = "let row; columns: displayedColumns;"></tr>
+      </table>
+
+
+    </div>
+
+
+
+
+
+
+
+  </div>
+</div>
