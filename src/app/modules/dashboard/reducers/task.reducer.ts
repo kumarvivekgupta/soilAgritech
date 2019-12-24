@@ -10,6 +10,7 @@ import {
   TASK_FETCH_SUCCESS
 } from '../actions/task.action';
 import {createSelector} from '@ngrx/store';
+import {state} from '@angular/animations';
 
 export interface TaskState extends EntityState<ITask> {
   loading: boolean;
@@ -51,7 +52,12 @@ export function taskReducer(state: TaskState = initialState, action: Action): Ta
     }
     case TASK_ADD_SUCCESS: {
       const addedState = taskAdapter.addOne(action.payload, state);
-      return {...addedState, adding: false};
+      return {
+        ...addedState, results: [
+          ...addedState.results,
+          action.payload.id
+        ], adding             : false
+      };
     }
     case TASK_EDIT_SUCCESS: {
       const updatedState = taskAdapter.updateOne({
@@ -81,9 +87,9 @@ export function taskReducer(state: TaskState = initialState, action: Action): Ta
       results          = [...action.payload.map(r => r.id)];
       return {
         ...addedState,
-        results         : results,
-        loading         : false,
-        loaded          : true,
+        results: results,
+        loading: false,
+        loaded : true,
       };
     }
   }
@@ -98,6 +104,7 @@ export const _getTasksUpdating = (state: TaskState) => state.updating;
 export const _getTasksUpdated  = (state: TaskState) => state.updated;
 export const _getTasksAdding   = (state: TaskState) => state.adding;
 export const _getTasksDeleting = (state: TaskState) => state.deleting;
+export const _getTasksLoaded   = (state: TaskState) => state.loaded;
 
 export const _getTasks = createSelector(_getTaskResults, _getTaskEntities, (ids, entities) => {
   return ids.map(id => entities[id]);

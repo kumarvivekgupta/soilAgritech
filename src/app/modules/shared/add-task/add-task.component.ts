@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
-import {DashboardRootState, getTasks} from '../../dashboard/reducers';
+import {ActivatedRoute, Router} from '@angular/router';
+import {DashboardRootState, getTasks, getTasksResults} from '../../dashboard/reducers';
 import {map, takeUntil} from 'rxjs/operators';
 import {select, Store} from '@ngrx/store';
 import {ITask} from '../../core/models/task';
@@ -21,8 +21,10 @@ export class AddTaskComponent implements OnInit {
   form: FormGroup;
   completedStatus = ['open', 'closed'];
   id: number;
+  count: number;
 
-  constructor(private route: ActivatedRoute, private store: Store<DashboardRootState>) {
+  constructor(private route: ActivatedRoute, private store: Store<DashboardRootState>,
+              private router: Router) {
     this.id = +this.route.snapshot.params['id'];
   }
 
@@ -31,7 +33,9 @@ export class AddTaskComponent implements OnInit {
       name     : new FormControl('', Validators.required),
       date     : new FormControl(''),
       completed: new FormControl(''),
-      star     : new FormControl(false)
+      star     : new FormControl(false),
+      // Not added when api will be provided
+      id       : new FormControl('')
     });
 
     if (!!this.id) {
@@ -46,7 +50,9 @@ export class AddTaskComponent implements OnInit {
         this.form.setValue({
           name     : newTask.name,
           date     : new Date(newTask.date),
-          completed: newTask.complete === true ? 'closed' : 'open'
+          completed: newTask.complete === true ? 'closed' : 'open',
+          star     : newTask.start,
+          id       : newTask.id
         });
       });
 
@@ -64,19 +70,32 @@ export class AddTaskComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('entry');
-    if (this.form.getRawValue()['complete'] === 'open') {
-      this.form.getRawValue()['complete'] = false;
+
+    if (this.form.getRawValue()['completed'] === 'open') {
+      this.form.patchValue({
+        completed: 'false'
+      });
     } else {
-      this.form.getRawValue()['complete'] = true;
+      this.form.patchValue({
+        completed: 'true'
+      });
+      console.log(this.form.getRawValue());
     }
     if (!!this.id) {
+
       this.store.dispatch(new TaskEditRequestAction());
-      this.store.dispatch(new TaskEditSuccessAction(this.form.getRawValue()));
+      this.store.dispatch(new TaskEditSuccessAction(this.form.getRawValue() as ITask));
     } else {
+      this.store.pipe(select(getTasksResults), map(res => res.length)).subscribe((r) => {
+        console.log(r);
+        this.form.patchValue({
+          id: r + 2
+        });
+      });
       this.store.dispatch(new TaskAddRequestAction());
-      this.store.dispatch(new TaskAddSuccessAction(this.form.getRawValue()));
+      this.store.dispatch(new TaskAddSuccessAction(this.form.getRawValue() as ITask));
     }
+     this.router.navigateByUrl('dashboard/tasks');
 
   }
 
