@@ -1,0 +1,22 @@
+.dashboard{
+  &__logo{
+    display: flex;
+    justify-content: space-between;
+    padding: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    img{
+      width:100px;
+    }
+
+  }
+  &__switch{
+    width: 500px;
+    margin: auto;
+  }
+  &__router{
+    margin-top: 20px;
+    overflow-x: hidden;
+  }
+
+}

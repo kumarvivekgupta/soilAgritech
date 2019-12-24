@@ -14,6 +14,9 @@ export const TASK_DELETE_SUCCESS = '[Task] Task Delete Success';
 export const TASK_EDIT_REQUEST = '[Task] Task Edit Request';
 export const TASK_EDIT_SUCCESS = '[Task] Task Edit Success';
 
+export const TASK_FETCH_REQUEST = '[Task] Task Fetch Request';
+export const TASK_FETCH_SUCCESS = '[Task] Task Fetch Success';
+
 export class TaskAddRequestAction implements Action {
   readonly type = TASK_ADD_REQUEST;
 }
@@ -24,6 +27,7 @@ export class TaskAddSuccessAction implements Action {
   constructor(public payload: ITask) {
   }
 }
+
 export class TaskAddErrorAction implements Action {
   readonly type = TASK_ADD_ERROR;
 }
@@ -48,5 +52,17 @@ export class TaskEditSuccessAction implements Action {
   readonly type = TASK_EDIT_SUCCESS;
 
   constructor(public payload: ITask) {
+  }
+}
+
+export class TaskFetchRequestAction implements Action {
+  readonly type = TASK_FETCH_REQUEST;
+}
+
+export class TaskFetchSuccessAction implements Action {
+  readonly type = TASK_FETCH_SUCCESS;
+
+  constructor(public payload: ITask[]) {
+
   }
 }

@@ -1,7 +1,14 @@
 import {ITask} from '../../core/models/task';
 import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
 import {Action} from '../../core/actions/action';
-import {TASK_ADD_REQUEST, TASK_ADD_SUCCESS, TASK_DELETE_REQUEST, TASK_EDIT_REQUEST, TASK_EDIT_SUCCESS} from '../actions/task.action';
+import {
+  TASK_ADD_REQUEST,
+  TASK_ADD_SUCCESS,
+  TASK_DELETE_REQUEST,
+  TASK_EDIT_REQUEST,
+  TASK_EDIT_SUCCESS, TASK_FETCH_REQUEST,
+  TASK_FETCH_SUCCESS
+} from '../actions/task.action';
 import {createSelector} from '@ngrx/store';
 
 export interface TaskState extends EntityState<ITask> {
@@ -15,6 +22,7 @@ export interface TaskState extends EntityState<ITask> {
   deleting: boolean;
 
 }
+
 
 export const taskAdapter: EntityAdapter<ITask> = createEntityAdapter<ITask>({
   selectId    : (alert: ITask) => alert.id,
@@ -60,6 +68,22 @@ export function taskReducer(state: TaskState = initialState, action: Action): Ta
     case TASK_DELETE_REQUEST: {
       return {
         ...state, deleting: true
+      };
+    }
+    case TASK_FETCH_REQUEST: {
+      return {
+        ...state, loading: true
+      };
+    }
+    case TASK_FETCH_SUCCESS: {
+      const addedState = taskAdapter.addMany(action.payload, state);
+      let results      = [];
+      results          = [...action.payload.map(r => r.id)];
+      return {
+        ...addedState,
+        results         : results,
+        loading         : false,
+        loaded          : true,
       };
     }
   }

@@ -1,7 +1,6 @@
 
-import {createFeatureSelector, createSelector} from '@ngrx/store/src/selector';
+import {createFeatureSelector, createSelector} from '@ngrx/store';
 import {_getTaskResults, _getTasksAdding, _getTasksDeleting, _getTasksUpdating, taskReducer, TaskState} from './task.reducer';
-import {Action, ActionReducerMap} from '@ngrx/store';
 import {RootState} from '../../core/reducers';
 
 export interface DashboardState {

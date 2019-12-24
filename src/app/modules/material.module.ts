@@ -31,9 +31,7 @@ import {
   MatToolbarModule,
   MatTooltipModule
 } from '@angular/material';
-import {CdkTableModule} from '@angular/cdk/table';
 import {HttpClientModule} from '@angular/common/http';
-import {DragDropModule} from '@angular/cdk/drag-drop';
 
 const materialModules = [
   MatInputModule,
@@ -55,8 +53,6 @@ const materialModules = [
   MatSelectModule,
   MatListModule,
   MatTableModule,
-  CdkTableModule,
-  MatPaginatorModule,
   MatSortModule,
   MatRadioModule,
   MatChipsModule,
@@ -69,7 +65,6 @@ const materialModules = [
   MatExpansionModule,
   MatGridListModule,
   HttpClientModule,
-  DragDropModule
 ];
 
 @NgModule({
