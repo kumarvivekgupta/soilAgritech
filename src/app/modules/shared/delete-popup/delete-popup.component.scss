@@ -1,0 +1,25 @@
+
+
+.delete-popup {
+  display: flex;
+  flex-direction: column;
+
+  padding-top: 0;
+  margin: 0 30px;
+
+  &__button-grp {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
+}
+
+.close-button {
+  position: relative;
+  left: 90%;
+  z-index: 2000;
+  margin-bottom: 3rem;
+}
+
+

@@ -4,13 +4,15 @@ import {Action} from '../../core/actions/action';
 import {
   TASK_ADD_REQUEST,
   TASK_ADD_SUCCESS,
-  TASK_DELETE_REQUEST,
+  TASK_DELETE_REQUEST, TASK_DELETE_SUCCESS,
   TASK_EDIT_REQUEST,
   TASK_EDIT_SUCCESS, TASK_FETCH_REQUEST,
   TASK_FETCH_SUCCESS
 } from '../actions/task.action';
 import {createSelector} from '@ngrx/store';
-import {state} from '@angular/animations';
+import {Observable} from 'rxjs';
+import {select} from '@ngrx/store/src/store';
+import {getTasksDeleting} from './index';
 
 export interface TaskState extends EntityState<ITask> {
   loading: boolean;
@@ -92,6 +94,13 @@ export function taskReducer(state: TaskState = initialState, action: Action): Ta
         loaded : true,
       };
     }
+    case TASK_DELETE_SUCCESS: {
+      const newResults = [...state.results];
+      const newState   = taskAdapter.removeOne(action.payload, state);
+      return {
+        ...newState, results: newResults, deleting: false
+      };
+    }
   }
 }
 
@@ -109,6 +118,8 @@ export const _getTasksLoaded   = (state: TaskState) => state.loaded;
 export const _getTasks = createSelector(_getTaskResults, _getTaskEntities, (ids, entities) => {
   return ids.map(id => entities[id]);
 });
+
+
 
 
 
