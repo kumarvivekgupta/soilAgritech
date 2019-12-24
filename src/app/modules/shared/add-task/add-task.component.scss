@@ -2,6 +2,11 @@
  // min-width: 100%;
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  mat-card-header{
+    font-size: 30px;
+    justify-content: center;
+  }
   &__form {
     display: flex;
     flex-direction: column;
@@ -34,4 +39,8 @@
     display: flex;
     justify-content: center;
   }
+}
+.button-soil{
+  display: flex;
+  justify-content: center;
 }
