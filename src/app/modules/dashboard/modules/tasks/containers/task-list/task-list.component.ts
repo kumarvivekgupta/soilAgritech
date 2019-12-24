@@ -10,12 +10,9 @@ import {
   TaskFetchRequestAction,
   TaskFetchSuccessAction
 } from '../../../../actions/task.action';
-import {map} from 'rxjs/operators';
+import {map, take} from 'rxjs/operators';
 import {select} from '@ngrx/store';
-import {DeletePopupComponent} from '../../../../../shared/delete-popup/delete-popup.component';
 import {MatDialog, MatTableDataSource} from '@angular/material';
-import {checkAndUpdateNode} from '@angular/core/src/view/view';
-import {Observable} from 'rxjs';
 
 @Component({
   selector   : 'app-tas-list',
@@ -28,8 +25,8 @@ export class TaskListComponent implements OnInit {
 
   dataSource = new MatTableDataSource<ITask>();
 
-  count: boolean;
-  deleting: boolean;
+  count = false;
+  deleting: number;
 
   constructor(private fetchTasksService: FetchTasksService, private store: Store<DashboardRootState>,
               private dialog: MatDialog, private changeDetectorRefs: ChangeDetectorRef) {
@@ -37,10 +34,12 @@ export class TaskListComponent implements OnInit {
 
   ngOnInit() {
     this.store.pipe(select(getTasksLoaded)).subscribe((r) => {
-      this.count    = r;
-      this.taskList = [];
-      console.log(r);
+      this.count = r;
+        this.taskList = [];
+       //  console.log(r);
     });
+
+
     if (!this.count) {
       this.store.dispatch(new TaskFetchRequestAction());
       this.fetchTasksService.taskList().subscribe((r) => {
@@ -63,44 +62,18 @@ export class TaskListComponent implements OnInit {
     this.store.dispatch(new TaskEditRequestAction());
     this.taskList.forEach(taskone => {
       if (taskone.id === id) {
-        taskone.start = !taskone.start;
+        if (taskone.start === 1) {
+          taskone.start = 0;
+        } else {
+          taskone.start = 1;
+        }
       }
     });
     const task = this.taskList.filter(taskone => taskone.id === id);
-    // console.log(task);
+    console.log(task);
     this.store.dispatch(new TaskEditSuccessAction(task[0]));
   }
 
-  delete(id: number) {
-
-    // this.taskList = [];
-    // this.store.select(getTasks).subscribe((res) => {
-    //   res.map(task => this.taskList.push(task));
-    // });
-
-    // const ref = this.dialog.open(DeletePopupComponent, {
-    //   data           : {
-    //     'message'      : 'Do you want to delete task ',
-    //     'okMessage'    : 'Yes',
-    //     'cancelMessage': 'Cancel',
-    //   }, disableClose: true, autoFocus: false, height: '32%', maxWidth: '50%'
-    // });
-    // ref.afterClosed().pipe().subscribe((r) => {
-    //   if (r === 'ok') {
-    //
-    //
-    //     this.changeDetectorRefs.detectChanges();
-    //     this.taskList = [];
-    //     this.store.select(getTasks).subscribe((res) => {
-    //       res.map(task => this.taskList.push(task));
-    //     });
-    //
-    //     this.dataSource.data = this.taskList;
-    //
-    //
-    //   }
-    // });
-  }
 
   // getTaskDeleting(): Observable<boolean> {
   //   return this.store.pipe(select(getTasksDeleting));

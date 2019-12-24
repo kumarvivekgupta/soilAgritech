@@ -18,28 +18,28 @@ const tasks: ITask[] = [
     id      : 1,
     name    : 'Test1',
     date    : new Date(),
-    start   : false,
-    complete: false
+    start   : 1,
+    completed: 0
   },
   {
     id      : 2,
     name    : 'Test2',
     date    : new Date(),
-    start   : false,
-    complete: false
+    start   : 1,
+    completed: 1
   },
   {
     id      : 3,
     name    : 'Test3',
     date    : new Date(),
-    start   : false,
-    complete: false
+    start   : 0,
+    completed: 0
   },
   {
     id      : 4,
     name    : 'Test4',
     date    : new Date(),
-    start   : false,
-    complete: false
+    start   : 0,
+    completed: 0
   }
 ];

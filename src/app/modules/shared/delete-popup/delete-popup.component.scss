@@ -3,9 +3,14 @@
 .delete-popup {
   display: flex;
   flex-direction: column;
+  height: 100px;
 
   padding-top: 0;
   margin: 0 30px;
+  h2{
+    display: flex;
+    align-self: center;
+  }
 
   &__button-grp {
     display: flex;
@@ -20,6 +25,16 @@
   left: 90%;
   z-index: 2000;
   margin-bottom: 3rem;
+}
+
+.delete{
+  width: 50%;
+  display: flex;
+  /* justify-content: center; */
+  margin: auto;
+  /* margin-top: auto; */
+  /* height: 150px; */
+  margin-top: 20%;
 }
 
 

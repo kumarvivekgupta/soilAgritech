@@ -14,18 +14,14 @@ import {Store} from '@ngrx/store';
 export class DeleteComponent {
   id: number;
   loading = false;
-  message: string;
-  okMessage: 'Yes';
-  cancelMessage: 'cancel';
 
 
   constructor(private router: Router, private store: Store<DashboardRootState>, private route: ActivatedRoute) {
     this.id = +this.route.snapshot.params['id'];
+
   }
 
-  setDeleteMessage(message: 'Do you want to delete task ') {
-    this.message = message;
-  }
+
 
   delete() {
     this.store.dispatch(new TaskDeleteRequestAction());

@@ -1,9 +1,9 @@
-
+<mat-card class="delete">
 <span class="cancel-icon close-button" (click)="cancel()"><mat-icon> clear </mat-icon></span>
 
 <div class="delete-popup">
 
-  <h2>{{message}}</h2>
+  <h2>Do you want to delete task </h2>
 
   <div class="delete-popup__button-grp">
 
@@ -11,14 +11,14 @@
       mat-raised-button
       class="button-osler"
       (click)="cancel()">
-      {{cancelMessage}}
+     Cancel
     </button>
 
     <button
       mat-raised-button
       class="button-osler"
       (click)="delete()">
-      {{okMessage}}
+      Yes
     </button>
 
     <mat-spinner
@@ -29,3 +29,4 @@
 
   </div>
 </div>
+</mat-card>

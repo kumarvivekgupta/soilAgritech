@@ -10,9 +10,7 @@ import {
   TASK_FETCH_SUCCESS
 } from '../actions/task.action';
 import {createSelector} from '@ngrx/store';
-import {Observable} from 'rxjs';
-import {select} from '@ngrx/store/src/store';
-import {getTasksDeleting} from './index';
+import * as _ from 'lodash';
 
 export interface TaskState extends EntityState<ITask> {
   loading: boolean;
@@ -95,8 +93,8 @@ export function taskReducer(state: TaskState = initialState, action: Action): Ta
       };
     }
     case TASK_DELETE_SUCCESS: {
-      const newResults = [...state.results];
-      const newState   = taskAdapter.removeOne(action.payload, state);
+     const  newResults     = state.results.filter(result => result !== action.payload);
+      const newState = taskAdapter.removeOne(action.payload, state);
       return {
         ...newState, results: newResults, deleting: false
       };

@@ -33,7 +33,7 @@ export class AddTaskComponent implements OnInit {
       name     : new FormControl('', Validators.required),
       date     : new FormControl(''),
       completed: new FormControl(''),
-      star     : new FormControl(false),
+      start     : new FormControl(0),
       // Not added when api will be provided
       id       : new FormControl('')
     });
@@ -49,9 +49,9 @@ export class AddTaskComponent implements OnInit {
         });
         this.form.setValue({
           name     : newTask.name,
-          date     : new Date(newTask.date),
-          completed: newTask.complete === true ? 'closed' : 'open',
-          star     : newTask.start,
+          date     : newTask.date,
+          completed: newTask.completed === 1 ? 'open' : 'closed',
+          start     : newTask.start,
           id       : newTask.id
         });
       });
@@ -73,11 +73,11 @@ export class AddTaskComponent implements OnInit {
 
     if (this.form.getRawValue()['completed'] === 'open') {
       this.form.patchValue({
-        completed: 'false'
+        completed: 1
       });
     } else {
       this.form.patchValue({
-        completed: 'true'
+        completed: 0
       });
       console.log(this.form.getRawValue());
     }
